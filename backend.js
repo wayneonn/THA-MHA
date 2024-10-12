@@ -62,6 +62,18 @@ app.get('/object/:id', (req, res) => {
     }
 });
 
+app.delete('/object/:id', (req, res) => {
+  const { id } = req.params;
+  const index = data.findIndex((obj) => obj.id === parseInt(id));
+
+  if (index !== -1) {
+    const deletedObject = data.splice(index, 1);
+    res.status(200).json(deletedObject);
+  } else {
+    res.status(404).json({ message: 'Object not found' });
+  }
+});
+
 // Save updated JSON data before server exits
 const saveData = () => {
     try {
